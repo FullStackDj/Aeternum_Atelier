@@ -7,6 +7,7 @@ import {GiBeachBag} from "react-icons/gi";
 import {TbArrowNarrowRight} from "react-icons/tb";
 
 const Header = () => {
+
   const [menuOpened, setMenuOpened] = useState(false);
   const [token, setToken] = useState(true);
   const navigate = useNavigate();
@@ -35,13 +36,18 @@ const Header = () => {
         </Link>
 
         <div className="flex-1">
-          <Navbar/>
+          <Navbar menuOpened={menuOpened} toggleMenu={toggleMenu}
+                  containerStyles={`${menuOpened} ? "flex" flex-col 
+                  gap-y-12 h-screen w-[222px] absolute left-0 top-0 
+                  bg-white z-50 px-10 py-4 shadow-xl" : "hidden xl:flex 
+                  gap-x-5 xl:gap-x-8 medium-15 rounded-full px-2 py-1"`}/>
         </div>
 
         <Link to={'/'} className='bold-24 flex-1 hidden xl:flex'>
           <h4
             className='bg-white shadow-sm text-secondary flexCenter h-28 w-28 px-2 absolute -top-5 rounded-full '>
-            Aeternum Atelier</h4>
+            Aeternum Atelier
+          </h4>
         </Link>
 
         <div className="flexBetween gap-x-2 xs:gap-x-8">

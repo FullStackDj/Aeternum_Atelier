@@ -36,11 +36,17 @@ const Header = () => {
         </Link>
 
         <div className="flex-1">
-          <Navbar menuOpened={menuOpened} toggleMenu={toggleMenu}
-                  containerStyles={`${menuOpened} ? "flex" flex-col 
-                  gap-y-12 h-screen w-[222px] absolute left-0 top-0 
-                  bg-white z-50 px-10 py-4 shadow-xl" : "hidden xl:flex 
-                  gap-x-5 xl:gap-x-8 medium-15 rounded-full px-2 py-1"`}/>
+
+          <Navbar
+            menuOpened={menuOpened}
+            toggleMenu={toggleMenu}
+            containerStyles={
+              menuOpened
+                ? "flex flex-col gap-y-12 h-screen w-[222px] absolute left-0 top-0 bg-white z-50 px-10 py-4 shadow-xl"
+                : "hidden xl:flex gap-x-5 xl:gap-x-8 medium-15 rounded-full px-2 py-1"
+            }
+          />
+
         </div>
 
         <Link to={'/'} className='bold-24 flex-1 hidden xl:flex'>

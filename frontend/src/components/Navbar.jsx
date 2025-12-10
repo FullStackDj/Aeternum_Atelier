@@ -10,7 +10,7 @@ const Navbar = ({containerStyles, toggleMenu, menuOpened}) => {
     {to: "/", label: "Home", icon: <SiGooglehome/>},
     {to: "/collection", label: "Collection", icon: <BsCollectionFill/>},
     {to: "/about", label: "About", icon: <SiAtlassian/>},
-    {to: "/mailto:support@aeternum_atelier.com", label: "Contact", icon: "SiMaildotcom"}
+    {to: "/mailto:support@aeternum_atelier.com", label: "Contact", icon: <SiMaildotcom/>}
   ]
 
   return (

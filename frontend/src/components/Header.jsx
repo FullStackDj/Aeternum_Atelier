@@ -9,7 +9,7 @@ import {ShopContext} from "../context/ShopContext.jsx";
 
 const Header = () => {
 
-  const {setShowSearch} = useContext(ShopContext)
+  const {setShowSearch, getCartCount} = useContext(ShopContext)
   const [menuOpened, setMenuOpened] = useState(false);
   const [token, setToken] = useState(true);
   const navigate = useNavigate();
@@ -68,7 +68,8 @@ const Header = () => {
           <Link to={"/cart"} className="flex relative">
             <GiBeachBag className="text-[25px]"/>
             <span
-              className="bg-secondary text-white medium-14 absolute right-0.5 -top-3 flexCenter w-5 h-5 rounded-full shadow-inner">0</span>
+              className="bg-secondary text-white medium-14 absolute right-0.5 -top-3 flexCenter w-5 h-5
+              rounded-full shadow-inner">{getCartCount()}</span>
           </Link>
 
           <div className="group relative">
@@ -77,7 +78,8 @@ const Header = () => {
             </div>
             {token && <>
               <ul
-                className="bg-white shadow-sm p-3 w-32 ring-1 ring-slate-900/15 rounded absolute right-0 hidden group-hover:flex flex-col">
+                className="bg-white shadow-sm p-3 w-32 ring-1 ring-slate-900/15 rounded absolute right-0 hidden
+                group-hover:flex flex-col">
                 <li onClick={() => navigate('/orders')} className="flexBetween cursor-pointer">
                   <p>Orders</p>
                   <TbArrowNarrowRight className="text-[19px] opacity-50"/>

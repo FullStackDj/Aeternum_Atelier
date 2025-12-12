@@ -1,13 +1,15 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import Navbar from './Navbar'
 import {FaBarsStaggered, FaRegCircleUser} from "react-icons/fa6";
 import {FaSearch} from "react-icons/fa";
 import {GiBeachBag} from "react-icons/gi";
 import {TbArrowNarrowRight} from "react-icons/tb";
+import {ShopContext} from "../context/ShopContext.jsx";
 
 const Header = () => {
 
+  const {setShowSearch} = useContext(ShopContext)
   const [menuOpened, setMenuOpened] = useState(false);
   const [token, setToken] = useState(true);
   const navigate = useNavigate();
@@ -61,7 +63,7 @@ const Header = () => {
             <FaBarsStaggered onClick={toggleMenu} className="xl:hidden cursor-pointer text-2xl"/>
           )}
           <div>
-            <FaSearch className="text-xl cursor-pointer"/>
+            <FaSearch onClick={() => setShowSearch((prev) => !prev)} className="text-xl cursor-pointer"/>
           </div>
           <Link to={"/cart"} className="flex relative">
             <GiBeachBag className="text-[25px]"/>

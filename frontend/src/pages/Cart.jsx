@@ -84,7 +84,7 @@ const Cart = () => {
                             <FaPlus onClick={() => increment(item._id, item.size)} className='text-xs'/>
                           </button>
                         </div>
-                        <h4 className='h4'>{currency}{productData.price}</h4>
+                        <h4 className='h4'>{currency}{productData.price * item.quantity}</h4>
                       </div>
                     </div>
                   </div>

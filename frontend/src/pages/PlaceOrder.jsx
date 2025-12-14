@@ -1,9 +1,11 @@
 import React, {useContext, useState} from 'react'
+import CartTotal from '../components/CartTotal'
 import {ShopContext} from '../context/ShopContext'
 import Footer from '../components/Footer'
 
 const PlaceOrder = () => {
   const {navigate} = useContext(ShopContext)
+  const [method, setMethod] = useState('cod')
 
   const [formData, setFormData] = useState({
     firstName: '',
@@ -60,8 +62,36 @@ const PlaceOrder = () => {
                 className='ring-1 ring-slate-900/15 p-1 pl-3 rounded-sm bg-primary outline-none'
               />
             </div>
+
             <div className='flex flex-1 flex-col'>
-              <button type='button' onClick={() => navigate('/cart')} className='btn-secondary'>
+              <CartTotal/>
+              <div className='my-6'>
+                <h3 className='bold-20 mb-5'>
+                  Payment <span className='text-secondary'>Method</span>
+                </h3>
+                <div className='flex gap-3'>
+                  <div
+                    onClick={() => setMethod('stripe')}
+                    className={`${method === 'stripe' ? 'text-secondary !font-bold' : ''} 
+                    btn-light !py-1 cursor-pointer`}
+                  >
+                    Stripe
+                  </div>
+                  <div
+                    onClick={() => setMethod('cod')}
+                    className={`${method === 'cod' ? 'text-secondary !font-bold' : ''} 
+                    btn-light !py-1 cursor-pointer`}
+                  >
+                    Cash on Delivery
+                  </div>
+                </div>
+              </div>
+              <div>
+                <button type='submit' className='btn-secondary'>
+                  Place Order
+                </button>
+              </div>
+              <button type='button' onClick={() => navigate('/cart')} className='btn-light mt-4'>
                 Back to Cart
               </button>
             </div>

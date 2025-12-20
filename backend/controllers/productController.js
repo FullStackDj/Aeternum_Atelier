@@ -13,7 +13,7 @@ const addProduct = async (req, res) => {
 
     let imagesUrl = await Promise.all(
       images.map(async (item) => {
-        let result = await cloudinary.uploader.upload(item.path, {resource_type: "image"})
+        let result = await cloudinary.uploader.upload(item.path, {resource_type: "image"});
         return result.secure_url
       })
     )
@@ -30,10 +30,13 @@ const addProduct = async (req, res) => {
       date: Date.now()
     }
 
+    console.log(productData)
+
     const product = new productModel(productData)
     await product.save()
 
     res.json({success: true, message: "Product Added"})
+
   } catch (error) {
     console.log(error)
     res.json({success: false, message: error.message})
@@ -50,4 +53,26 @@ const listProduct = async (req, res) => {
   }
 }
 
-export {addProduct, listProduct}
+const removeProduct = async (req, res) => {
+  try {
+    await productModel.findByIdAndDelete(req.body.id)
+    res.json({success: true, message: "Product Removed"})
+  } catch (error) {
+    console.log(error)
+    res.json({success: false, message: error.message})
+  }
+}
+
+
+const singleProduct = async (req, res) => {
+  try {
+    const {productId} = req.body
+    const product = await productModel.findById(productId)
+    res.json({success: true, product})
+  } catch (error) {
+    console.log(error)
+    res.json({success: false, message: error.message})
+  }
+}
+
+export {addProduct, listProduct, removeProduct, singleProduct}

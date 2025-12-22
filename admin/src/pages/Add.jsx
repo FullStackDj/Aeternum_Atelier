@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import upload_icon from '../assets/upload_icon.png'
 
 const Add = ({token}) => {
-
   const [image1, setImage1] = useState(false)
   const [image2, setImage2] = useState(false)
   const [image3, setImage3] = useState(false)
@@ -13,6 +12,7 @@ const Add = ({token}) => {
   const [price, setPrice] = useState('')
   const [category, setCategory] = useState('Men')
   const [subCategory, setSubCategory] = useState('Topwear')
+  const [sizes, setSizes] = useState([])
 
   return (
     <form className='pl-8'>
@@ -83,6 +83,27 @@ const Add = ({token}) => {
               <input onChange={(e) => setPrice(e.target.value)} value={price}
                      type='number' placeholder='10'
                      className='px-3 py-2 bg-white rounded max-w-24 ring-1 ring-slate-900/5'/>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h5 className='h5'>Product Sizes</h5>
+          <div className='flex gap-3 mt-2'>
+            <div
+              onClick={() => setSizes(prev => prev.includes('S') ? prev.filter(item => item !== 'S') : [...prev, 'S'])}>
+              <span
+                className={`${sizes.includes('S') ? 'bg-tertiary text-white' : 'bg-white'} text-gray-30 rounded ring-1 ring-slate-900/5 px-3 py-1 cursor-pointer`}>S</span>
+            </div>
+            <div
+              onClick={() => setSizes(prev => prev.includes('M') ? prev.filter(item => item !== 'M') : [...prev, 'M'])}>
+              <span
+                className={`${sizes.includes('M') ? 'bg-tertiary text-white' : 'bg-white'} text-gray-30 rounded ring-1 ring-slate-900/5 px-3 py-1 cursor-pointer`}>M</span>
+            </div>
+            <div
+              onClick={() => setSizes(prev => prev.includes('L') ? prev.filter(item => item !== 'L') : [...prev, 'L'])}>
+              <span
+                className={`${sizes.includes('L') ? 'bg-tertiary text-white' : 'bg-white'} text-gray-30 rounded ring-1 ring-slate-900/5 px-3 py-1 cursor-pointer`}>L</span>
             </div>
           </div>
         </div>

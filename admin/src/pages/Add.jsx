@@ -10,6 +10,9 @@ const Add = ({token}) => {
 
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
+  const [price, setPrice] = useState('')
+  const [category, setCategory] = useState('Men')
+  const [subCategory, setSubCategory] = useState('Topwear')
 
   return (
     <form className='pl-8'>
@@ -51,6 +54,37 @@ const Add = ({token}) => {
                     value={description} rows={5} type='text'
                     placeholder='Write here..'
                     className='px-3 py-1.5 ring-1 ring-slate-900/10 rounded bg-white mt-1 w-[333px] sm:w-full'/>
+        </div>
+
+        <div>
+          <div className='flex flex-col sm:flex-row gap-4'>
+            <div className='flex flow-row gap-4'>
+              <div>
+                <h5 className='h5'>Category</h5>
+                <select onChange={(e) => setCategory(e.target.value)}
+                        className='max-w-20 px-3 py-2 text-gray-30 ring-1 ring-slate-900/5 bg-white rounded'>
+                  <option value='Men'>Men</option>
+                  <option value='Women'>Women</option>
+                  <option value='Kids'>Kids</option>
+                </select>
+              </div>
+              <div>
+                <h5 className='h5'>Sub Category</h5>
+                <select onChange={(e) => setSubCategory(e.target.value)}
+                        className='max-w-28 px-3 py-2 text-gray-30 ring-1 ring-slate-900/5 bg-white rounded'>
+                  <option value='Topwear'>Topwear</option>
+                  <option value='Bottomwear'>Bottomwear</option>
+                  <option value='Winterwear'>Winterwear</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <h5 className='h5'>Product Price</h5>
+              <input onChange={(e) => setPrice(e.target.value)} value={price}
+                     type='number' placeholder='10'
+                     className='px-3 py-2 bg-white rounded max-w-24 ring-1 ring-slate-900/5'/>
+            </div>
+          </div>
         </div>
       </div>
     </form>

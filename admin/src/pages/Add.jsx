@@ -5,6 +5,11 @@ const Add = ({token}) => {
 
   const [image1, setImage1] = useState(false)
   const [image2, setImage2] = useState(false)
+  const [image3, setImage3] = useState(false)
+  const [image4, setImage4] = useState(false)
+
+  const [name, setName] = useState('')
+  const [description, setDescription] = useState('')
 
   return (
     <form className='pl-8'>
@@ -21,6 +26,31 @@ const Add = ({token}) => {
                  className='w-16 h-16 aspect-square object-cover ring-1 ring-slate-900/5 rounded-lg'/>
             <input onChange={(e) => setImage2(e.target.files[0])} type='file' name='image' id='image2' hidden/>
           </label>
+          <label htmlFor='image3'>
+            <img src={image3 ? URL.createObjectURL(image3) : upload_icon} alt=''
+                 className='w-16 h-16 aspect-square object-cover ring-1 ring-slate-900/5 rounded-lg'/>
+            <input onChange={(e) => setImage3(e.target.files[0])} type='file' name='image' id='image3' hidden/>
+          </label>
+          <label htmlFor='image4'>
+            <img src={image4 ? URL.createObjectURL(image4) : upload_icon} alt=''
+                 className='w-16 h-16 aspect-square object-cover ring-1 ring-slate-900/5 rounded-lg'/>
+            <input onChange={(e) => setImage4(e.target.files[0])} type='file' name='image' id='image4' hidden/>
+          </label>
+        </div>
+
+        <div className=''>
+          <h5 className='h5'>Product Name</h5>
+          <input onChange={(e) => setName(e.target.value)} value={name}
+                 type='text' placeholder='Write here..'
+                 className='px-3 py-1.5 ring-1 ring-slate-900/10 rounded bg-white mt-1 w-[333px] sm:w-full'/>
+        </div>
+
+        <div>
+          <h5 className='h5'>Product Description</h5>
+          <textarea onChange={(e) => setDescription(e.target.value)}
+                    value={description} rows={5} type='text'
+                    placeholder='Write here..'
+                    className='px-3 py-1.5 ring-1 ring-slate-900/10 rounded bg-white mt-1 w-[333px] sm:w-full'/>
         </div>
       </div>
     </form>

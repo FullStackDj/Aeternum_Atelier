@@ -12,10 +12,15 @@ const Add = ({token}) => {
   const [price, setPrice] = useState('')
   const [category, setCategory] = useState('Men')
   const [subCategory, setSubCategory] = useState('Topwear')
+  const [popular, setPopular] = useState(false)
   const [sizes, setSizes] = useState([])
 
+  const onSubmitHandler = async (e) => {
+    e.preventDefault()
+  }
+
   return (
-    <form className='pl-8'>
+    <form onSubmit={onSubmitHandler} className='pl-8'>
       <div className='flex flex-col gap-y-2 medium-15'>
         <h3 className='h3'>Upload Image</h3>
         <div className='flex gap-2 pt-2'>
@@ -105,8 +110,25 @@ const Add = ({token}) => {
               <span
                 className={`${sizes.includes('L') ? 'bg-tertiary text-white' : 'bg-white'} text-gray-30 rounded ring-1 ring-slate-900/5 px-3 py-1 cursor-pointer`}>L</span>
             </div>
+            <div
+              onClick={() => setSizes(prev => prev.includes('XL') ? prev.filter(item => item !== 'XL') : [...prev, 'XL'])}>
+              <span
+                className={`${sizes.includes('XL') ? 'bg-tertiary text-white' : 'bg-white'} text-gray-30 rounded ring-1 ring-slate-900/5 px-3 py-1 cursor-pointer`}>XL</span>
+            </div>
+            <div
+              onClick={() => setSizes(prev => prev.includes('XXL') ? prev.filter(item => item !== 'XXL') : [...prev, 'XXL'])}>
+              <span
+                className={`${sizes.includes('XXL') ? 'bg-tertiary text-white' : 'bg-white'} text-gray-30 rounded ring-1 ring-slate-900/5 px-3 py-1 cursor-pointer`}>XXL</span>
+            </div>
           </div>
         </div>
+
+        <div className='flexStart gap-2 my-2'>
+          <input onChange={() => setPopular(prev => !prev)} type='checkbox' checked={popular} id='popular'/>
+          <label htmlFor='popular' className='cursor-pointer'>Add to popular</label>
+        </div>
+
+        <button type='submit' className='btn-dark mt-3 max-w-44 sm:w-full'>Add Product</button>
       </div>
     </form>
   )

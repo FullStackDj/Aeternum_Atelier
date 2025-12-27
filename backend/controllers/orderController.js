@@ -36,6 +36,7 @@ const placeOrder = async (req, res) => {
 const placeOrderStripe = async (req, res) => {
   try {
     const {userId, items, amount, address} = req.body
+    const {origin} = req.headers
 
     const orderData = {
       userId,
@@ -49,12 +50,49 @@ const placeOrderStripe = async (req, res) => {
     const newOrder = new orderModel(orderData)
     await newOrder.save()
 
-    res.json({success: false, message: "Stripe checkout pending"})
+    const line_items = items.map((item) => ({
+      price_data: {
+        currency: currency,
+        product_data: {
+          name: item.name
+        },
+        unit_amount: item.price * 100 * 277
+      },
+      quantity: item.quantity
+    }))
+    line_items.push({
+      price_data: {
+        currency: currency,
+        product_data: {
+          name: 'Delivery charges'
+        },
+        unit_amount: deliveryCharges * 100 * 277
+      },
+      quantity: 1
+    })
+
+    const session = await stripe.checkout.sessions.create({
+      success_url: `${origin}/verify?success=true&orderId=${newOrder._id}`,
+      cancel_url: `${origin}/verify?success=false&orderId=${newOrder._id}`,
+      line_items,
+      mode: 'payment'
+    })
+    res.json({success: true, session_url: session.url})
 
   } catch (error) {
     console.log(error)
     req.json({success: false, message: error.message})
   }
+
 }
 
-export {placeOrder, placeOrderStripe}
+const verifyStripe = async (req, res) => {
+  try {
+    res.json({success: false})
+  } catch (error) {
+    console.log(error)
+    res.json({success: false, message: error.message})
+  }
+}
+
+export {placeOrder, placeOrderStripe, verifyStripe}

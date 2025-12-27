@@ -87,12 +87,56 @@ const placeOrderStripe = async (req, res) => {
 }
 
 const verifyStripe = async (req, res) => {
+  const {orderId, success, userId} = req.body
   try {
-    res.json({success: false})
+    if (success === "true") {
+      await orderModel.findByIdAndUpdate(orderId, {payment: true})
+      await userModel.findByIdAndUpdate(userId, {cartData: {}})
+      res.json({success: true})
+    } else {
+      await orderModel.findByIdAndDelete(orderId)
+      res.json({success: false})
+    }
   } catch (error) {
     console.log(error)
     res.json({success: false, message: error.message})
   }
 }
 
-export {placeOrder, placeOrderStripe, verifyStripe}
+const allOrders = async (req, res) => {
+  try {
+    const orders = await orderModel.find({})
+    res.json({success: true, orders})
+  } catch (error) {
+    console.log(error)
+    res.json({success: false, message: error.message})
+  }
+
+}
+
+const userOrders = async (req, res) => {
+  try {
+    const {userId} = req.body
+
+    const orders = await orderModel.find({userId})
+    res.json({success: true, orders})
+  } catch (error) {
+    console.log(error)
+    res.json({success: false, message: error.message})
+  }
+}
+
+const updateStatus = async (req, res) => {
+  try {
+    const {orderId, status} = req.body
+    await orderModel.findByIdAndUpdate(orderId, {status})
+    res.json({success: true, message: 'Status Updated'})
+  } catch (error) {
+    console.log(error)
+    res.json({success: false, message: error.message})
+
+  }
+}
+
+export {placeOrder, placeOrderStripe, allOrders, userOrders, updateStatus, verifyStripe}
+
